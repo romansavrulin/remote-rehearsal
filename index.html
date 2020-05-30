@@ -8,6 +8,15 @@
 <html id="home" lang="en">
 
     <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFKQN4GFWE"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-TFKQN4GFWE');
+        </script>
         <script>
             if(!location.hash.replace('#', '').length) {
                 location.href = location.href.split('#')[0] + '#' + (Math.random() * 100).toString().replace('.', '');
@@ -95,6 +104,8 @@
             </table>
 
             <div id="participants"></div>
+
+            <img width="100%" src="img/usecase.jpg"/>
 
             <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
             <script src="https://www.webrtc-experiment.com/socket.io.js"> </script>

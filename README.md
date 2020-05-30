@@ -1,4 +1,12 @@
-#### WebRTC One-to-Many audio sharing/broadcasting [Demo](https://www.webrtc-experiment.com/audio-broadcast/)
+#### WebRTC One-to-Many audio sharing/broadcasting [Demo](http://romansavrulin.github.io/remote-rehearsal/)
+
+
+
+#### Usecase
+
+Improved audio quality! Used for live monitoring and studio talkback
+
+![Demo](img/usecase.jpg)
 
 =
 
