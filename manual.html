@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<html id="manual" lang="en">
+    <head>
+        <title>WebRTC Remote monitoring setup guide</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta name="author" content="Roman Savrulin">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <link rel="author" type="text/html" href="https://facebook.com/romansavrulin">
+        <link rel="stylesheet" href="style.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFKQN4GFWE"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TFKQN4GFWE');
+        </script>
+
+    </head>
+
+    <body>
+        <article>
+
+            <h1>Studio Remote monitoring and mixing</h1>
+            <br/>
+            <h3>Motivation</h3>
+            <p>
+                I have a studio, Equipped with Studiolive Series III 24R, that is shared between several bands to do rehearsals.
+                Every band that uses studio would like to have a recordings of their rehearsals for future analysis.
+                The first and natural way was to offer SD card and do stereo recording on it. But this way have major drawbacks, that is related to post-recording steps: you must remember to take the card away from the mixer, then download files to your machine and upload it to the platform where band members could access it.
+            </p>
+
+            <p>
+                Bands share 2 sound guys (incl. me) between them.
+                But we are not a part of their creative process, but help to build monitoring mixes for rehearsal purposes.
+                At some point, attending every single rehearsal became very difficult, because the trip time to the studio is about 1h throughout the busy streets.
+            </p>
+            <p>
+                I was thinking about recording automation steps and time optimizations scenarios and came to the idea that live streaming of rehearsals with a remote monitoring and mixing could solve all the problems at once.
+                While live streaming, mix get recorded and shared automatically, so no extra steps needed post-rehearsal.
+                Remote monitoring and mixing solves trip time problems for both of sound guys.
+                So, I've started to search for available solutions for it.
+            </p>
+
+            <p>
+                For remote control I've chosen
+                <a href="https://www.teamviewer.com/ru/">TeamViewer</a> + <a href="https://www.presonus.com/products/UC-Surface/downloads">UC</a> on a remote host.
+                <br/>
+                For streaming - <a href="https://obsproject.com/ru">OBS studio</a> + <a href="https://github.com/Andersama/obs-asio">ASIO plugin</a>.
+            </p>
+
+            <p>
+                But there wasn't any suitable option for realtime monitoring and talkback,so I've decided to prototype one for my needs.
+                I looked into WebRTC engine that is built into modern browsers.
+                This engine is used to hold your favorite conferences, like google meet, but this conferences uses some algorithms that renders it unusable for live monitoring.
+                I’ve tuned some params to get a round-trip latency about 0.5s and quite decent audio quality.
+            </p>
+
+            <p>
+                The overall system diagram is shown on Pic 1.
+            </p>
+
+
+            <div class="img_sub">
+            <img width="100%" src="img/usecase.jpg"/>
+            <span>Pic 1.</span> The overall system diagram</div>
+
+            <h1>Remote control setup</h1>
+            <p>
+                Using Team Viewer is really straightforward, and goes out of scope of this tutorial.
+                You can find a lot of resources about how to use it.
+                My advice is to setup an account to benefit quick (easy) access to your remote host.
+                Another thing to note is choosing right options after you connect to your remote machine.
+            </p>
+
+            <p class="step">
+                1. Disable your remote PC sounds.
+                Leaving this option enabled will confuse you, because you’ll hear your own mic.
+                <br/>
+                <a data-fancybox="gallery" data-caption="Disable your remote PC sounds" href="img/01.tw-disable-audio.jpg"><img width="30%" src="img/01.tw-disable-audio.jpg"></a>
+            </p>
+            <p class="step">
+                2. Optimize your quality for speed.
+                This will give you more bandwidth for your live stream and a shorter response from controls
+                <br/>
+                <a data-fancybox="gallery" data-caption="Optimize quality for speed" href="img/02.tw-fast.jpg"><img width="30%" src="img/02.tw-fast.jpg"></a>
+            </p>
+
+            <h1>Streaming setup</h1>
+
+            <h3>OBS Setup</h3>
+            <p>
+                Streaming is done using <a href="https://obsproject.com/ru">OBS studio</a> + <a href="https://github.com/Andersama/obs-asio">ASIO plugin</a>.
+                The setup is straightforward, just install OBS, and plugin afterwards.
+            </p>
+            <p class="step">
+                1. Add an Asio source in OBS Studio Source Panel.
+                <br/>
+                <a data-fancybox="gallery" data-caption="Add ASIO source in OBS Studio" href="img/03-asio-add.jpg"><img width="30%" src="img/03-asio-add.jpg"></a>
+            </p>
+            <p class="step">
+                2. Select input sources in input selection menu.
+                I used USB Channels 3&4 for matrix stereo pair mix
+
+                <br/>
+                <a data-fancybox="gallery" data-caption="Select input sources in input selection menu" href="img/04-asio-select.jpg"><img width="30%" src="img/04-asio-select.jpg"></a>
+            </p>
+
+            <h3>Mixer Setup</h3>
+            <p>
+                In order to mitigate the feedback issues I don’t offer PA or monitor wedges by default.
+                Instead, I’ve built my own <a href="https://www.facebook.com/groups/271981426558794/permalink/894161174340813/"> wired monitoring system</a> and all musicians are advised to use it in the studio.
+                To make musicians feel more natural during rehearsals, I offered a subwoofer in a room with main PA off.
+                This forms 2.1 system (sub + L/R headphones) and really sounds great for every personal mix.
+                So, My AUX stereo pairs from 1-2 to 11-12 are for personal IEM mixes. 13-14 are reserved for rare use cases with wedge monitors, and 15-16 are stream mix (REC).
+                <br/>
+                <a data-fancybox="gallery" data-caption="REC Mix" href="img/05-rec-mix.jpg"><img width="30%" src="img/05-rec-mix.jpg"></a>
+            </p>
+
+            <p class="step">
+                1. Set this as a matrix mix, Pre2, with POST digital send option, routed to USB 3&4 or any other, that was selected in OBS Studio Asio Plugin as audio source
+                <br/>
+                <a data-fancybox="gallery" data-caption="REC Mix Setup" href="img/06-rec-mix-setup.jpg"><img width="30%" src="img/06-rec-mix-setup.jpg"></a>
+            </p>
+            <p>
+                From this point you are ready to do live steaming.
+            </p>
+
+            <h1>Remote Monitoring And Talkback setup</h1>
+            <p>
+                I intensively use SOLO bus for monitoring process.
+                This gives me the way to listen to any source or a combination of sources I want at the moment.
+            </p>
+            <h3>Mixer & System Setup for Monitoring (Windows)</h3>
+            <p class="step">
+                1. Patch SOLO bus to USB 1&2 pair with USB patch menu
+                <br/>
+                <a data-fancybox="gallery" data-caption="SOLO routing setup" href="img/07-solo-patch.jpg"><img width="30%" src="img/07-solo-patch.jpg"></a>
+            </p>
+            <p class="step">
+                2. Select Your mixer as default system sound and recording source in Windows menu.
+                <br/>
+                <a data-fancybox="gallery" data-caption="Windows Audio Setup" href="img/08-windows-sources.jpg"><img width="30%" src="img/08-windows-sources.jpg"></a>
+            </p>
+            <h3>Mixer Setup for TALKBACK</h3>
+            <p>
+                Unfortunately, you cannot use built-in TALKBACK system in 24R with USB talkback source due to the lack of routing flexibility.
+                So we have to use another option for it: DigiRet or Aux IN 1/2. I use DigiRet.
+            </p>
+            <p class="step">
+                1. Patch your USB channels 37/38 to Digital Return (DigiRet channel)
+                <br/>
+                <a data-fancybox="gallery" data-caption="Talkback routing setup" href="img/09-Talkback-patch.jpg"><img width="30%" src="img/09-Talkback-patch.jpg"></a>
+            </p>
+            <p class="step">
+                2. Verify DigiRet is selected as USB source.
+                Mute the channel by default.
+                You will use MUTE button on main mix to toggle Talkback to all your AUXes of choice.
+                <br/>
+                <a data-fancybox="gallery" data-caption="Talkback source setup" href="img/10-Talkback-patch.jpg"><img width="30%" src="img/10-Talkback-patch.jpg"></a>
+            </p>
+            <p class="step">
+                3. Select «Main Mutes Auxes» as an option for Link Aux Mutes.
+                This will give you a single button click on a main mix Digi Ret Mute to toggle talkback to all of your HP mixes
+                <br/>
+                <a data-fancybox="gallery" data-caption="Talkback switch setup" href="img/11-Mute-mode.jpg"><img width="30%" src="img/11-Mute-mode.jpg"></a>
+            </p>
+            <p class="step">
+                4. Bring DigiRet to all your desired mixes you want to talkback to
+                <br/>
+                <a data-fancybox="gallery" data-caption="Talkback assign setup" href="img/12-Talkback-assign.jpg"><img width="30%" src="img/12-Talkback-assign.jpg"></a>
+            </p>
+            <h1>Workflow steps. Bringing all together</h1>
+            <p>
+                To pass a SOLO stream from studio to my monitoring site and a Talkback to studio, use my <a href="/index.html">custom built web page</a>
+            </p>
+            <p class="step">
+                1. Open <a href="index.html">this page</a> on remote PC in the studio
+            </p>
+            <p class="step">
+                2. Setup new «broadcast room» for your monitoring with «New Broadcast» button, optionally giving it a name.
+                <br/>
+                <a data-fancybox="gallery" data-caption="Start New Broadcast" href="img/13-broadcast-start.jpg"><img width="30%" src="img/13-broadcast-start.jpg"></a>
+            </p>
+            <p class="step">
+                3. It will ask you for permissions to access your mic for the first time.
+                Ensure your mic is either default (if you have selected Studiolive in your windows audio preferences), or Presonus Studiolive explicitly.
+                You can persist your choice to allow permissions.
+                <br/>
+            </p>
+            <p class="step">
+                4. You should see a single player on a page with a MUTED sound output.
+                That’s fine, don’t touch any controls on it (AT ALL).
+                <br/>
+            </p>
+            <p class="step">
+                5. In a room page, copy its link
+                <br/>
+                <a data-fancybox="gallery" data-caption="Copy Broadcast ID" href="img/14-broadcast-start2.jpg"><img width="30%" src="img/14-broadcast-start2.jpg"></a>
+            </p>
+            <p class="step">
+                6. Open this link on your monitoring site machine.
+                Remember to see that unique hashes of the pages in URL on both pages match!
+                If everything Is OK, you’ll see your broadcast room on your monitoring site browser.
+                Just click «Join Room» button on side of room’s name
+                <br/>
+                <a data-fancybox="gallery" data-caption="Join Broadcast room" href="img/15-join-broadcast.jpg"><img width="30%" src="img/15-join-broadcast.jpg"></a>
+            </p>
+            <p class="step">
+                7. The page should ask you for permissions to use your microphone for talkback.
+                You MUST approve it, otherwise everything will brake.
+                <br/>
+            </p>
+            <p class="step">
+                8. After connection setup, you should see 2 players running on your monitoring site’s page.
+                Left hand side player is for your SOLO bus from remote machine.
+                DO NOT TOUCH RIGHT HAND SIDE PLAYER.
+                Do not touch transport buttons on ANY player you see.
+                <br/>
+                <a data-fancybox="gallery" data-caption="Successful running session" href="img/16-solo-player.jpg"><img width="30%" src="img/16-solo-player.jpg"></a>
+            </p>
+            <p class="step">
+                9. That’s all, now you can hear your SOLO bus from remote host and use your remote mic to talkback to the studio.
+                <br/>
+            </p>
+        </article>
+
+
+        <footer>
+
+        </footer>
+    </body>
+</html>
