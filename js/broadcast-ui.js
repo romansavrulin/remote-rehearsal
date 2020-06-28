@@ -4,7 +4,8 @@
 
 var config = {
     openSocket: function(config) {
-        var SIGNALING_SERVER = 'https://socketio-over-nodejs2.herokuapp.com:443/';
+        var SIGNALING_SERVER = 'http://lk.vendopay.tech:9559/';
+        //var SIGNALING_SERVER = 'http://localhost:9559/';
 
         config.channel = config.channel || location.href.replace(/\/|:|#|%|\.|\[|\]/g, '');
         var sender = Math.round(Math.random() * 999999999) + 999999999;
@@ -17,10 +18,12 @@ var config = {
         var socket = io.connect(SIGNALING_SERVER + config.channel);
         socket.channel = config.channel;
         socket.on('connect', function() {
+            console.log("Connected to signalling server!");
             if (config.callback) config.callback(socket);
         });
 
         socket.send = function(message) {
+            console.log("Message: " + message);
             socket.emit('message', {
                 sender: sender,
                 data: message

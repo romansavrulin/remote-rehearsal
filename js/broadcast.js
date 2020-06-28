@@ -24,6 +24,7 @@ var broadcast = function(config) {
     }
 
     function onPublicSocketResponse(response) {
+        console.log("On Message: " + response)
         if (response.userToken == self.userToken) return;
 
         if (isGetNewRoom && response.roomToken && response.broadcaster) config.onRoomFound(response);
