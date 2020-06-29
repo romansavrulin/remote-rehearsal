@@ -4,7 +4,7 @@
 
 var config = {
     openSocket: function(config) {
-        var SIGNALING_SERVER = 'http://lk.vendopay.tech:9559/';
+        var SIGNALING_SERVER = 'https://stream.vendopay.tech:443/';
         //var SIGNALING_SERVER = 'http://localhost:9559/';
 
         config.channel = config.channel || location.href.replace(/\/|:|#|%|\.|\[|\]/g, '');
