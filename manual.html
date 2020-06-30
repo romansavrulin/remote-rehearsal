@@ -59,7 +59,7 @@
             </p>
 
             <p>
-                But there wasn't any suitable option for realtime monitoring and talkback,so I've decided to prototype one for my needs.
+                But there wasn't any suitable option for realtime monitoring and TALKBACK,so I've decided to prototype one for my needs.
                 I looked into WebRTC engine that is built into modern browsers.
                 This engine is used to hold your favorite conferences, like google meet, but this conferences uses some algorithms that renders it unusable for live monitoring.
                 I’ve tuned some params to get a round-trip latency about 0.5s and quite decent audio quality.
@@ -135,7 +135,7 @@
                 From this point you are ready to do live steaming.
             </p>
 
-            <h1>Remote Monitoring And Talkback setup</h1>
+            <h1>Remote Monitoring And TALKBACK setup</h1>
             <p>
                 I intensively use SOLO bus for monitoring process.
                 This gives me the way to listen to any source or a combination of sources I want at the moment.
@@ -153,35 +153,35 @@
             </p>
             <h3>Mixer Setup for TALKBACK</h3>
             <p>
-                Unfortunately, you cannot use built-in TALKBACK system in 24R with USB talkback source due to the lack of routing flexibility.
+                Unfortunately, you cannot use built-in TALKBACK system in 24R with USB TALKBACK source due to the lack of routing flexibility.
                 So we have to use another option for it: DigiRet or Aux IN 1/2. I use DigiRet.
             </p>
             <p class="step">
                 1. Patch your USB channels 37/38 to Digital Return (DigiRet channel)
                 <br/>
-                <a data-fancybox="gallery" data-caption="Talkback routing setup" href="img/09-Talkback-patch.jpg"><img width="30%" src="img/09-Talkback-patch.jpg"></a>
+                <a data-fancybox="gallery" data-caption="TALKBACK routing setup" href="img/09-Talkback-patch.jpg"><img width="30%" src="img/09-Talkback-patch.jpg"></a>
             </p>
             <p class="step">
                 2. Verify DigiRet is selected as USB source.
                 Mute the channel by default.
-                You will use MUTE button on main mix to toggle Talkback to all your AUXes of choice.
+                You will use MUTE button on main mix to toggle TALKBACK to all your AUXes of choice.
                 <br/>
                 <a data-fancybox="gallery" data-caption="Talkback source setup" href="img/10-Talkback-patch.jpg"><img width="30%" src="img/10-Talkback-patch.jpg"></a>
             </p>
             <p class="step">
                 3. Select «Main Mutes Auxes» as an option for Link Aux Mutes.
-                This will give you a single button click on a main mix Digi Ret Mute to toggle talkback to all of your HP mixes
+                This will give you a single button click on a main mix Digi Ret Mute to toggle TALKBACK to all of your HP mixes
                 <br/>
                 <a data-fancybox="gallery" data-caption="Talkback switch setup" href="img/11-Mute-mode.jpg"><img width="30%" src="img/11-Mute-mode.jpg"></a>
             </p>
             <p class="step">
-                4. Bring DigiRet to all your desired mixes you want to talkback to
+                4. Bring DigiRet to all your desired mixes you want to TALKBACK to
                 <br/>
                 <a data-fancybox="gallery" data-caption="Talkback assign setup" href="img/12-Talkback-assign.jpg"><img width="30%" src="img/12-Talkback-assign.jpg"></a>
             </p>
             <h1>Workflow steps. Bringing all together</h1>
             <p>
-                To pass a SOLO stream from studio to my monitoring site and a Talkback to studio, use my <a href="index.html">custom built web page</a>
+                To pass a SOLO stream from studio to my monitoring site and a TALKBACK to studio, use my <a href="index.html">custom built web page</a>
             </p>
             <p class="step">
                 1. Open <a href="index.html">this page</a> on remote PC in the studio
@@ -216,7 +216,7 @@
                 <a data-fancybox="gallery" data-caption="Join Broadcast room" href="img/15-join-broadcast.jpg"><img width="30%" src="img/15-join-broadcast.jpg"></a>
             </p>
             <p class="step">
-                7. The page should ask you for permissions to use your microphone for talkback.
+                7. The page should ask you for permissions to use your microphone for TALKBACK.
                 You MUST approve it, otherwise everything will brake.
                 <br/>
             </p>
@@ -229,8 +229,30 @@
                 <a data-fancybox="gallery" data-caption="Successful running session" href="img/16-solo-player.jpg"><img width="30%" src="img/16-solo-player.jpg"></a>
             </p>
             <p class="step">
-                9. That’s all, now you can hear your SOLO bus from remote host and use your remote mic to talkback to the studio.
+                9. That’s all, now you can hear your SOLO bus from remote host and use your remote mic to TALKBACK to the studio.
                 <br/>
+            </p>
+
+            <h1>Using mobile device</h1>
+            <p>
+                The workflow on a mobile device should be the same as on PC.
+                I've tested it with iOS13 + Safari + TeamViewer for iOS.
+                But solution looks a bit hackish to me and sometimes unstable.
+            </p>
+            <p class="step">
+                1. Open Team Viewer and connect to your remote PC.
+            </p>
+            <p class="step">
+                2. Setup remote side of conference with the steps above
+            </p>
+            <p class="step">
+                3. Open conference link in safari. Team viewer will tell you that it will disconnect soon.
+            </p>
+            <p class="step">
+                4. Connect to the conference in Safari. You must start to hear your remote SOLO source.
+            </p>
+            <p class="step">
+                5. Return to TeamViewer. Now you could test your TALKBACK function.
             </p>
         </article>
 
