@@ -138,7 +138,7 @@ img.thumb {
     /*object-fit: cover;*/
     margin-right : auto;
     margin-left : auto;
-    min-width : 350px;
+    /*min-width : 350px;*/
     /*max-width : 650px;*/
     max-height: 400px;
 }
