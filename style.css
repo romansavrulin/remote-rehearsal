@@ -11,9 +11,9 @@ body {
 
 article, footer {
     display: block;
-    max-width: 900px;
-    min-width: 360px;
-    width: 80%;
+    max-width: 1000px;
+    min-width: 300px;
+    width: 90%;
 }
 
 article {
@@ -126,6 +126,21 @@ strong {
     color: rgb(204, 14, 14);
     font-family: inherit;
     font-weight: normal;
+}
+
+img.thumb {
+    width: 100%;
+    /*height: auto;*/
+    object-fit: scale-down;
+    /*object-position: left;*/
+
+    /*display: block;*/
+    /*object-fit: cover;*/
+    margin-right : auto;
+    margin-left : auto;
+    min-width : 350px;
+    /*max-width : 650px;*/
+    max-height: 400px;
 }
 
 tr, td, th {
